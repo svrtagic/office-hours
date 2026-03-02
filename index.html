@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Office Hours – Sabahudin Vrtagic</title>
+<style>
+  body { font-family: Arial, sans-serif; }
+  table { border-collapse: collapse; width: 100%; max-width: 600px; }
+  th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+  th { background: #f2f2f2; }
+  .disabled { color: #999; pointer-events: none; text-decoration: none; }
+  .active { color: #0066cc; font-weight: bold; }
+</style>
+</head>
+
+<body>
+
+<h3>Course Office Hours – Sabahudin Vrtagic</h3>
+
+<table>
+<tr>
+  <th>Day</th>
+  <th>Time</th>
+  <th>Meeting Link</th>
+</tr>
+
+<tr data-day="0">
+  <td>Sunday</td>
+  <td>10:00 – 11:00</td>
+  <td><a class="meet" href="https://myportal.aum.edu.kw/mod/bigbluebuttonbn/view.php?id=1179702">Join</a></td>
+</tr>
+
+<tr data-day="1">
+  <td>Monday</td>
+  <td>10:00 – 11:00</td>
+  <td><a class="meet" href="https://myportal.aum.edu.kw/mod/bigbluebuttonbn/view.php?id=1179702">Join</a></td>
+</tr>
+
+<tr data-day="2">
+  <td>Tuesday</td>
+  <td>10:00 – 11:00</td>
+  <td><a class="meet" href="https://myportal.aum.edu.kw/mod/bigbluebuttonbn/view.php?id=1179702">Join</a></td>
+</tr>
+
+<tr data-day="3">
+  <td>Wednesday</td>
+  <td>10:00 – 11:00</td>
+  <td><a class="meet" href="https://myportal.aum.edu.kw/mod/bigbluebuttonbn/view.php?id=1179702">Join</a></td>
+</tr>
+
+<tr data-day="4">
+  <td>Thursday</td>
+  <td>10:00 – 11:00</td>
+  <td><a class="meet" href="https://myportal.aum.edu.kw/mod/bigbluebuttonbn/view.php?id=1179702">Join</a></td>
+</tr>
+
+</table>
+
+<p id="status"></p>
+
+<script>
+const now = new Date();
+const day = now.getDay(); // Sunday = 0
+const hour = now.getHours();
+const minute = now.getMinutes();
+
+const inOfficeHours = (hour === 10);
+const rows = document.querySelectorAll("tr[data-day]");
+let active = false;
+
+rows.forEach(row => {
+  const link = row.querySelector(".meet");
+  if (parseInt(row.dataset.day) === day && inOfficeHours) {
+    link.classList.add("active");
+    active = true;
+  } else {
+    link.classList.add("disabled");
+  }
+});
+
+document.getElementById("status").innerText =
+  active ? "Office hours are OPEN now." : "Office hours are currently CLOSED.";
+</script>
+
+</body>
+</html>
