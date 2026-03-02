@@ -38,7 +38,7 @@
 
 <tr data-day="2">
   <td>Tuesday</td>
-  <td>00:00 – 01:00</td>
+  <td>10:00 – 01:00</td>
   <td><a class="meet" href="https://myportal.aum.edu.kw/mod/bigbluebuttonbn/view.php?id=1179702">Join</a></td>
 </tr>
 
@@ -64,7 +64,7 @@ const day = now.getDay(); // Sunday = 0
 const hour = now.getHours();
 const minute = now.getMinutes();
 
-const inOfficeHours = (hour === 10);
+const inOfficeHours = (hour === 00);
 const rows = document.querySelectorAll("tr[data-day]");
 let active = false;
 
