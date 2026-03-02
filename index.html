@@ -1,85 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Office Hours – Sabahudin Vrtagic</title>
-<style>
-  body { font-family: Arial, sans-serif; }
-  table { border-collapse: collapse; width: 100%; max-width: 600px; }
-  th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
-  th { background: #f2f2f2; }
-  .disabled { color: #999; pointer-events: none; text-decoration: none; }
-  .active { color: #0066cc; font-weight: bold; }
-</style>
+  <meta charset="UTF-8"/>
+  <title>Office Hours – Sabahudin Vrtagic</title>
 </head>
-
 <body>
 
-<h3>Course Office Hours – Sabahudin Vrtagic</h3>
+<h2>Course Office Hours: Sabahudin Vrtagic</h2>
 
-<table>
-<tr>
-  <th>Day</th>
-  <th>Time</th>
-  <th>Meeting Link</th>
-</tr>
-
-<tr data-day="0">
-  <td>Sunday</td>
-  <td>10:00 – 11:00</td>
-  <td><a class="meet" href="https://myportal.aum.edu.kw/mod/bigbluebuttonbn/view.php?id=1179702">Join</a></td>
-</tr>
-
-<tr data-day="1">
-  <td>Monday</td>
-  <td>10:00 – 11:00</td>
-  <td><a class="meet" href="https://myportal.aum.edu.kw/mod/bigbluebuttonbn/view.php?id=1179702">Join</a></td>
-</tr>
-
-<tr data-day="2">
-  <td>Tuesday</td>
-  <td>10:00 – 11:00</td>
-  <td><a class="meet" href="https://myportal.aum.edu.kw/mod/bigbluebuttonbn/view.php?id=1179702">Join</a></td>
-</tr>
-
-<tr data-day="3">
-  <td>Wednesday</td>
-  <td>10:00 – 11:00</td>
-  <td><a class="meet" href="https://myportal.aum.edu.kw/mod/bigbluebuttonbn/view.php?id=1179702">Join</a></td>
-</tr>
-
-<tr data-day="4">
-  <td>Thursday</td>
-  <td>10:00 – 11:00</td>
-  <td><a class="meet" href="https://myportal.aum.edu.kw/mod/bigbluebuttonbn/view.php?id=1179702">Join</a></td>
-</tr>
-
+<table border="1" cellpadding="10" cellspacing="0">
+  <tr>
+    <th>Day</th>
+    <th>Time</th>
+    <th>Join</th>
+  </tr>
+  <tr>
+    <td>Sunday</td>
+    <td>10:00 – 11:00</td>
+    <td><span id="slot-0"></span></td>
+  </tr>
+  <tr>
+    <td>Monday</td>
+    <td>10:00 – 11:00</td>
+    <td><span id="slot-1"></span></td>
+  </tr>
+  <tr>
+    <td>Tuesday</td>
+    <td>10:00 – 11:00</td>
+    <td><span id="slot-2"></span></td>
+  </tr>
+  <tr>
+    <td>Wednesday</td>
+    <td>10:00 – 11:00</td>
+    <td><span id="slot-3"></span></td>
+  </tr>
+  <tr>
+    <td>Thursday</td>
+    <td>10:00 – 11:00</td>
+    <td><span id="slot-4"></span></td>
+  </tr>
 </table>
 
 <p id="status"></p>
 
 <script>
-const now = new Date();
-const day = now.getDay(); // Sunday = 0
-const hour = now.getHours();
-const minute = now.getMinutes();
+  var LINK = "https://myportal.aum.edu.kw/mod/bigbluebuttonbn/view.php?id=1179702";
+  // Sunday=0, Monday=1, Tuesday=2, Wednesday=3, Thursday=4
+  var DAYS = [0, 1, 2, 3, 4];
 
-const inOfficeHours = (hour === 10);
-const rows = document.querySelectorAll("tr[data-day]");
-let active = false;
+  function update() {
+    var now = new Date();
+    var day = now.getDay();
+    var h = now.getHours();
+    var m = now.getMinutes();
+    var inTime = (h === 10) || (h === 10 && m >= 0 && m < 60);
+    inTime = (h === 10);
 
-rows.forEach(row => {
-  const link = row.querySelector(".meet");
-  if (parseInt(row.dataset.day) === day && inOfficeHours) {
-    link.classList.add("active");
-    active = true;
-  } else {
-    link.classList.add("disabled");
+    for (var i = 0; i < DAYS.length; i++) {
+      var cell = document.getElementById("slot-" + i);
+      if (day === DAYS[i] && inTime) {
+        cell.innerHTML = '<a href="' + LINK + '" target="_blank">Join</a>';
+      } else {
+        cell.innerHTML = "Not available";
+      }
+    }
+
+    var statusMsg = inTime && DAYS.indexOf(day) !== -1
+      ? "Office hours are live now."
+      : "Office hours are not active right now.";
+    document.getElementById("status").innerText = statusMsg;
   }
-});
 
-document.getElementById("status").innerText =
-  active ? "Office hours are OPEN now." : "Office hours are currently CLOSED.";
+  update();
+  setInterval(update, 1000);
 </script>
 
 </body>
